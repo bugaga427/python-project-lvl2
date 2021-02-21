@@ -1,11 +1,10 @@
-import argparse
+from gendiff.engine import generate_diff
+from gendiff.parser import get_arguments
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Generate diff')
-    parser.add_argument('first_file')
-    parser.add_argument('second_file')
-    parser.print_help()
+    file_before, file_after = get_arguments()
+    print(generate_diff(file_before, file_after))
 
 
 if __name__ == '__main__':
