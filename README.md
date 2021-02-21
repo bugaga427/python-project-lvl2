@@ -7,4 +7,4 @@
 ```
 gendiff path/to/file1 path/to/file2
 ```
-[![asciicast](https://asciinema.org/a/VhEIvB1nbOXIGkBShpwjG4qZH)](https://asciinema.org/a/VhEIvB1nbOXIGkBShpwjG4qZH)
+[![asciicast](https://asciinema.org/a/VhEIvB1nbOXIGkBShpwjG4qZH.png)](https://asciinema.org/a/VhEIvB1nbOXIGkBShpwjG4qZH)
