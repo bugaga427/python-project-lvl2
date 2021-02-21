@@ -1,8 +1,14 @@
 [tool.poetry]
 name = "hexlet-code"
-version = "0.1.0"
+version = "0.3.3"
 description = ""
 authors = ["bugaga427 <vladislav3372@gmail.com>"]
+packages = [
+  { include = "gendiff" },
+]
+
+[tool.poetry.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
