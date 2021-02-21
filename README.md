@@ -3,7 +3,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/bugaga427/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/bugaga427/python-project-lvl2/actions)
 
-[![superlinter](https://github.com/bugaga427/python-project-lvl2/blob/main/.github/workflows/superlinter/badge.svg)](https://github.com/bugaga427/python-project-lvl2/actions)
+[![superlinter](https://github.com/bugaga427/python-project-lvl2/blob/main/.github/workflows/superlinter/badge.svg)](https://github.com/bugaga427/python-project-lvl2/blob/main/.github/workflows/superlinter/badge.svg)
 
 ### Comparison of flat files (JSON):
 ```
