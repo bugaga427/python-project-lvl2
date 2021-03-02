@@ -14,4 +14,10 @@ def generate_diff(file_before, file_after):
         else:
             result += f'  + {key}: {file_after[key]}\n'
     result += '}'
+    if 'False' in result:
+        result = result.replace('False', 'false')
+    if 'True' in result:
+        result = result.replace('True', 'true')
+    if 'None' in result:
+        result = result.replace('None', 'null')
     return result
