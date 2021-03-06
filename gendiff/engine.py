@@ -14,10 +14,14 @@ def generate_diff(file_before, file_after):
         else:
             result += f'  + {key}: {file_after[key]}\n'
     result += '}'
-    if 'False' in result:
-        result = result.replace('False', 'false')
-    if 'True' in result:
-        result = result.replace('True', 'true')
-    if 'None' in result:
-        result = result.replace('None', 'null')
-    return result
+    return convert_to_json_style(result)
+
+
+def convert_to_json_style(message):
+    if 'False' in message:
+        message = message.replace('False', 'false')
+    if 'True' in message:
+        message = message.replace('True', 'true')
+    if 'None' in message:
+        message = message.replace('None', 'null')
+    return message
