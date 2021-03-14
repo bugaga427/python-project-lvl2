@@ -1,5 +1,6 @@
-import json
 from gendiff.engine import generate_diff
+
+import json
 
 
 def test_json():
