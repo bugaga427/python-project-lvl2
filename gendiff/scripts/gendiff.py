@@ -7,5 +7,5 @@ def main():
     print(generate_diff(file_before, file_after))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
