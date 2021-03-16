@@ -24,6 +24,6 @@ jobs:
           python -m pip install poetry
           poetry add pytest pytest-cov
           poetry install
-    - name: Test
+    - name: Test with pytest
       run: |
         make test
