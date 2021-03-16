@@ -3,7 +3,9 @@
 ## Hexlet tests and linter status
 [![Actions Status](https://github.com/bugaga427/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/bugaga427/python-project-lvl2/actions)
 
-![superlinter](https://github.com/bugaga427/python-project-lvl2/actions/workflows/superlinter.yml/badge.svg)
+[![linter](https://github.com/bugaga427/python-project-lvl2/actions/workflows/linter.yml/badge.svg)](https://github.com/bugaga427/python-project-lvl2/actions/workflows/linter.yml)
+
+[![Tests](https://github.com/bugaga427/python-project-lvl2/actions/workflows/tests.yml/badge.svg)](https://github.com/bugaga427/python-project-lvl2/actions/workflows/tests.yml)
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3303fbc8d3603a44607f/test_coverage)](https://codeclimate.com/github/bugaga427/python-project-lvl2/test_coverage)
 
