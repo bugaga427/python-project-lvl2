@@ -24,6 +24,10 @@ jobs:
           python -m pip install poetry
           poetry add pytest pytest-cov
           poetry install
-    - name: Test with pytest
+    - name: run tests
       run: |
         make test
+    - name: Publish code coverage
+      uses: paambaati/codeclimate-action@v2.2.4
+      env:
+        CC_TEST_REPORTER_ID: 9624f16e578fef60ffe24cbed6161c846ba111e95db216ecabebb99bea510ac2
