@@ -20,7 +20,13 @@ def get_arguments():
 
     elif generate_parser().first_file.endswith(('.yaml', '.yml')) and \
             generate_parser().second_file.endswith(('.yaml', '.yml')):
-        arg1 = yaml.load(open(generate_parser().first_file))
-        arg2 = yaml.load(open(generate_parser().second_file))
+        arg1 = yaml.load(
+            open(generate_parser().first_file),
+            Loader=yaml.FullLoader
+        )
+        arg2 = yaml.load(
+            open(generate_parser().second_file),
+            Loader=yaml.FullLoader
+        )
 
     return arg1, arg2
