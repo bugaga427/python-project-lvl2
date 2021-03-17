@@ -1,5 +1,6 @@
 import argparse
 import json
+import yaml
 
 
 def generate_parser():
@@ -12,6 +13,16 @@ def generate_parser():
 
 
 def get_arguments():
-    arg1 = json.load(open(generate_parser().first_file))
-    arg2 = json.load(open(generate_parser().second_file))
+    if (
+        generate_parser().first_file.endswith('.json') and
+        generate_parser().second_file.endswith('.json')
+    ):
+        arg1 = json.load(open(generate_parser().first_file))
+        arg2 = json.load(open(generate_parser().second_file))
+    elif (
+        generate_parser().first_file.endswith(('.yaml', '.yml')) and
+        generate_parser().second_file.endswith(('.yaml', '.yml'))
+    ):
+        arg1 = yaml.load(open(generate_parser().first_file))
+        arg2 = yaml.load(open(generate_parser().second_file))
     return arg1, arg2
