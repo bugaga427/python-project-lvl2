@@ -1,9 +1,9 @@
 from gendiff.engine import generate_diff
-from gendiff.parser import get_arguments
+from gendiff.parsing import parsing_args
 
 
 def main():
-    file_before, file_after = get_arguments()
+    file_before, file_after = parsing_args()
     print(generate_diff(file_before, file_after))
 
 
