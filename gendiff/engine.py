@@ -7,13 +7,16 @@ def generate_diff(file_before, file_after):
         elif key in file_after and key not in file_before:
             result += f"  + {key}: {file_after[key]}\n"
         else:
-            if file_before[key] == file_after[key]:
-                result += f"    {key}: {file_before[key]}\n"
-            else:
-                result += f"  - {key}: {file_before[key]}\n"
-                result += f"  + {key}: {file_after[key]}\n"
+            result += check_values(key, file_before, file_after)
     result += "}"
     return edit_message(result)
+
+
+def check_values(key, file1, file2):
+    if file1[key] == file2[key]:
+        return f"    {key}: {file1[key]}\n"
+    else:
+        return f"  - {key}: {file1[key]}\n  + {key}: {file2[key]}\n"
 
 
 def edit_message(message):

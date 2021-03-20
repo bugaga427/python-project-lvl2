@@ -14,12 +14,10 @@ gendiff = "gendiff.scripts.gendiff:main"
 python = "^3.8"
 pytest = "^6.2.2"
 pytest-cov = "^2.11.1"
-isort = "^5.7.0"
 PyYAML = "^5.4.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
-autopep8 = "^1.5.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
