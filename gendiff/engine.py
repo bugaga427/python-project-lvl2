@@ -1,30 +1,22 @@
 def generate_diff(file_before, file_after):
     result = "{\n"
-    keys = get_keys(file_before, file_after)
+    keys = sorted(set(file_before) | set(file_after))
     for key in keys:
-        result += generate_message(key, file_before, file_after)
-    result += "}"
-    return convert_to_json_style(result)
-
-
-def get_keys(file1, file2):
-    return sorted(set(file1) | set(file2))
-
-
-def generate_message(key, file1, file2):
-    if key in file1:
-        if key in file2:
-            if file1[key] == file2[key]:
-                return f"    {key}: {file1[key]}\n"
-            else:
-                return f"  - {key}: {file1[key]}\n  + {key}: {file2[key]}\n"
+        if key in file_before and key not in file_after:
+            result += f"  - {key}: {file_before[key]}\n"
+        elif key in file_after and key not in file_before:
+            result += f"  + {key}: {file_after[key]}\n"
         else:
-            return f"  - {key}: {file1[key]}\n"
-    else:
-        return f"  + {key}: {file2[key]}\n"
+            if file_before[key] == file_after[key]:
+                result += f"    {key}: {file_before[key]}\n"
+            else:
+                result += f"  - {key}: {file_before[key]}\n"
+                result += f"  + {key}: {file_after[key]}\n"
+    result += "}"
+    return edit_message(result)
 
 
-def convert_to_json_style(message):
+def edit_message(message):
     if "False" in message:
         message = message.replace("False", "false")
     if "True" in message:
