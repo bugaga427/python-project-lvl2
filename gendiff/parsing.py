@@ -26,4 +26,5 @@ def is_json(file1, file2):
 
 
 def is_yaml(file1, file2):
-    return file1.endswith((".yaml", "yml")) and file2.endswith((".yaml", "yml"))
+    return file1.endswith((".yaml", ".yml")) and \
+        file2.endswith((".yaml", ".yml"))
