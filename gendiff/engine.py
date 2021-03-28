@@ -1,109 +1,56 @@
-def generate_diff(file_before, file_after, nesting_lvl=0):
-    result = "{\n"
+from gendiff.parsing import parsing_args
+from gendiff.parser import generate_parser
+
+
+def gendiff():
+    parser = generate_parser()
+    file_before, file_after = parsing_args()
+    diff = generate_diff(file_before, file_after)
+    print(edit_message(parser.format(diff)))
+
+
+def generate_diff(file_before, file_after):
+    result = []
     keys = sorted(set(file_before) | set(file_after))
     for key in keys:
-        if key in file_before and key not in file_after:
-            if isinstance(file_before.get(key), dict):
-                result += "    " * nesting_lvl + key_deleted(
-                    key, generate_diff(
-                        file_before[key],
-                        file_before[key],
-                        nesting_lvl=nesting_lvl + 1
-                    )
-                )
-            else:
-                result += "    " * nesting_lvl + key_deleted(
-                    key, file_before[key]
-                )
-        elif key in file_after and key not in file_before:
-            if isinstance(file_after.get(key), dict):
-                result += "    " * nesting_lvl + key_added(
-                    key, generate_diff(
-                        file_after[key],
-                        file_after[key],
-                        nesting_lvl=nesting_lvl + 1
-                    )
-                )
-            else:
-                result += "    " * nesting_lvl + key_added(key, file_after[key])
-        else:
-            if file_before[key] == file_after[key]:
-                if isinstance(file_before.get(key), dict):
-                    result += "    " * nesting_lvl + key_not_changed(
-                        key, generate_diff(
-                            file_before[key],
-                            file_after[key],
-                            nesting_lvl=nesting_lvl + 1
-                        )
-                    )
-                else:
-                    result += "    " * nesting_lvl + key_not_changed(
-                        key, file_before[key]
-                    )
-            else:
-                if isinstance(
-                    file_before.get(key), dict
-                ) and isinstance(
-                    file_after[key], dict
-                ):
-                    result += "    " * nesting_lvl + key_not_changed(
-                        key, generate_diff(
-                            file_before[key],
-                            file_after[key],
-                            nesting_lvl=nesting_lvl + 1
-                        )
-                    )
-                elif isinstance(
-                    file_before.get(key), dict
-                ) and not isinstance(
-                    file_after[key], dict
-                ):
-                    result += "    " * nesting_lvl + key_deleted(
-                        key, generate_diff(
-                            file_before[key],
-                            file_before[key],
-                            nesting_lvl=nesting_lvl + 1
-                        )
-                    )
-                    result += "    " * nesting_lvl + key_added(
-                        key, file_after[key]
-                    )
-                elif not isinstance(
-                    file_before.get(key), dict
-                ) and isinstance(
-                    file_after[key], dict
-                ):
-                    result += "    " * nesting_lvl + key_deleted(
-                        key, file_before[key]
-                    )
-                    result += "    " * nesting_lvl + key_added(
-                        key, generate_diff(
-                            file_after[key],
-                            file_after[key],
-                            nesting_lvl=nesting_lvl + 1
-                        )
-                    )
-                else:
-                    result += "    " * nesting_lvl + key_deleted(
-                        key, file_before[key]
-                    )
-                    result += "    " * nesting_lvl + key_added(
-                        key, file_after[key]
-                    )
-    result += "    " * nesting_lvl + "}"
-    return edit_message(result)
+        result.extend(check_keys(key, file_before, file_after))
+    return result
 
 
-def key_deleted(key, value):
-    return f"  - {key}: {value}\n"
+def is_dict(data):
+    return isinstance(data, dict)
 
 
-def key_added(key, value):
-    return f"  + {key}: {value}\n"
+def check_keys(key, file1, file2):
+    if key in file1 and key in file2:
+        return check_values(key, file1, file2)
+    elif key in file1:
+        result = check_values(key, file1, file1)
+        result[0][0] = "  -" + result[0][0][3:]
+        return result
+    elif key in file2:
+        result = check_values(key, file2, file2)
+        result[0][0] = "  +" + result[0][0][3:]
+        return result
 
 
-def key_not_changed(key, value):
-    return f"    {key}: {value}\n"
+def check_values(key, file1, file2):
+    if file1[key] == file2[key]:
+        value = file1[key]
+        if is_dict(file1[key]):
+            value = generate_diff(file1[key], file2[key])
+        return [[f"    {key}:", value]]
+    else:
+        value1 = file1[key]
+        value2 = file2[key]
+        if is_dict(file1[key]) and is_dict(file2[key]):
+            return [[f"    {key}:", generate_diff(file1[key], file2[key])]]
+        elif is_dict(file1[key]):
+            value1 = generate_diff(file1[key], file1[key])
+        elif is_dict(file2[key]):
+            value2 = generate_diff(file2[key], file2[key])
+        return [[f"  - {key}:", value1],
+                [f"  + {key}:", value2]]
 
 
 def edit_message(message):
@@ -113,4 +60,4 @@ def edit_message(message):
         message = message.replace("True", "true")
     if "None" in message:
         message = message.replace("None", "null")
-    return message
+    return message[:-1]
