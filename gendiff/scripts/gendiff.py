@@ -1,10 +1,8 @@
-from gendiff.engine import generate_diff
-from gendiff.parsing import parsing_args
+from gendiff.engine import gendiff
 
 
 def main():
-    file_before, file_after = parsing_args()
-    print(generate_diff(file_before, file_after))
+    gendiff()
 
 
 if __name__ == "__main__":
