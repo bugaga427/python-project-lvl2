@@ -1,12 +1,12 @@
 from gendiff.parsing import parsing_args
-from gendiff.parser import generate_parser
+from gendiff.parser import generate_parser, FORMATS
 
 
 def gendiff():
     parser = generate_parser()
     file_before, file_after = parsing_args()
     diff = generate_diff(file_before, file_after)
-    print(edit_message(parser.format(diff)))
+    print(edit_message(FORMATS[parser.format](diff)))
 
 
 def generate_diff(file_before, file_after):
