@@ -27,3 +27,11 @@ gendiff path/to/file1 path/to/file2
 ```
 
 [![asciicast](https://asciinema.org/a/58VmaLizAzepVqewCLfmAzCQ6.png)](https://asciinema.org/a/58VmaLizAzepVqewCLfmAzCQ6)
+
+### Recursive file comparison (JSON)
+
+[![asciicast](https://asciinema.org/a/SAKM3NApRkKy6HkJqtcGNVsKN.png)](https://asciinema.org/a/SAKM3NApRkKy6HkJqtcGNVsKN)
+
+### Recursive file comparison (YAML)
+
+[![asciicast](https://asciinema.org/a/9hjNg3R4HnO6k0NJEOYzrG3Wg.png)](https://asciinema.org/a/9hjNg3R4HnO6k0NJEOYzrG3Wg)
