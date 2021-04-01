@@ -6,7 +6,10 @@ def gendiff():
     parser = generate_parser()
     file_before, file_after = parsing_args()
     diff = generate_diff(file_before, file_after)
-    print(edit_message(FORMATS[parser.format](diff)))
+    if parser.format in FORMATS:
+        print(edit_message(FORMATS[parser.format](diff)))
+    else:
+        print("This output format is not supported.")
 
 
 def generate_diff(file_before, file_after):
