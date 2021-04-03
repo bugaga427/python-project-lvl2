@@ -48,7 +48,7 @@ def check_values(key, file1, file2):
         value1 = file1[key]
         value2 = file2[key]
         if is_dict(file1[key]) and is_dict(file2[key]):
-            return [["no changed", key, difference(file1[key])]]
+            return [["no changed", key, difference(file1[key], file2[key])]]
         elif is_dict(file1[key]):
             value1 = difference(file1[key], file1[key])
         elif is_dict(file2[key]):
