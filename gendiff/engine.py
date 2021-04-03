@@ -31,11 +31,10 @@ def check_keys(key, file1, file2):
     elif key in file1:
         result = check_values(key, file1, file1)
         result[0][0] = "removed"
-        return result
     elif key in file2:
         result = check_values(key, file2, file2)
         result[0][0] = "added"
-        return result
+    return result
 
 
 def check_values(key, file1, file2):
@@ -48,7 +47,7 @@ def check_values(key, file1, file2):
         value1 = file1[key]
         value2 = file2[key]
         if is_dict(file1[key]) and is_dict(file2[key]):
-            return [["no changed", key, difference(file1[key], file2[key])]]
+            return [["no changed", key, difference(value1, value2)]]
         elif is_dict(file1[key]):
             value1 = difference(file1[key], file1[key])
         elif is_dict(file2[key]):
