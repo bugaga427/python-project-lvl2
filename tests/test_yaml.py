@@ -1,5 +1,5 @@
 from gendiff.engine import generate_diff
-from gendiff.formatters.stylish import render as stylish
+from gendiff.formatters import stylish
 from gendiff.engine import edit_message
 import yaml
 
@@ -14,7 +14,9 @@ def test_yaml():
         Loader=yaml.FullLoader
     )
     result = open("tests/fixtures/diff.txt")
-    assert edit_message(stylish(generate_diff(before, after))) == result.read()
+    assert edit_message(
+        stylish.to_string(
+            generate_diff(before, after, stylish.render))) == result.read()
 
 
 def test_yaml_recursive():
@@ -27,4 +29,6 @@ def test_yaml_recursive():
         Loader=yaml.FullLoader
     )
     result = open("tests/fixtures/diff_recursive.txt")
-    assert edit_message(stylish(generate_diff(before, after))) == result.read()
+    assert edit_message(
+        stylish.to_string(
+            generate_diff(before, after, stylish.render))) == result.read()
