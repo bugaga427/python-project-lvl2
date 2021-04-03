@@ -1,4 +1,4 @@
-from gendiff.formatters.stylish import render as stylish
+from gendiff.formatters import stylish
 import argparse
 
 FORMATS = {
