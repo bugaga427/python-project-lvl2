@@ -1,4 +1,4 @@
-from gendiff.parser import generate_parser
+from gendiff.cli import generate_parser
 import json
 import yaml
 
