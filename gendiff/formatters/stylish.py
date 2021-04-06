@@ -1,4 +1,4 @@
-def render(data):
+def format(data):
     result = {}
     for item in data:
         status, key = item[0], item[1]
@@ -18,7 +18,7 @@ def render(data):
 
 def unpack_values(value):
     if isinstance(value, list):
-        return render(value)
+        return format(value)
     return value
 
 
