@@ -15,7 +15,7 @@ def test_yaml():
     result = open("tests/fixtures/diff.txt")
     assert edit_message(
         stylish.to_string(
-            generate_diff(before, after, stylish.render))) == result.read()
+            generate_diff(before, after, stylish.format))) == result.read()
 
 
 def test_yaml_recursive():
@@ -30,7 +30,7 @@ def test_yaml_recursive():
     result = open("tests/fixtures/diff_recursive.txt")
     assert edit_message(
         stylish.to_string(
-            generate_diff(before, after, stylish.render))) == result.read()
+            generate_diff(before, after, stylish.format))) == result.read()
 
 
 def test_yaml_plain():
@@ -45,4 +45,4 @@ def test_yaml_plain():
     result = open("tests/fixtures/diff_plain.txt")
     assert edit_message(
         plain.to_string(
-            generate_diff(before, after, plain.render))) == result.read()
+            generate_diff(before, after, plain.format))) == result.read()

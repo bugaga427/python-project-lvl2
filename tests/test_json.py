@@ -9,7 +9,7 @@ def test_json():
     result = open("tests/fixtures/diff.txt")
     assert edit_message(
         stylish.to_string(
-            generate_diff(before, after, stylish.render))) == result.read()
+            generate_diff(before, after, stylish.format))) == result.read()
 
 
 def test_json_recursive():
@@ -18,7 +18,7 @@ def test_json_recursive():
     result = open("tests/fixtures/diff_recursive.txt")
     assert edit_message(
         stylish.to_string(
-            generate_diff(before, after, stylish.render))) == result.read()
+            generate_diff(before, after, stylish.format))) == result.read()
 
 
 def test_json_plain():
@@ -27,4 +27,4 @@ def test_json_plain():
     result = open("tests/fixtures/diff_plain.txt")
     assert edit_message(
         plain.to_string(
-            generate_diff(before, after, plain.render))) == result.read()
+            generate_diff(before, after, plain.format))) == result.read()
