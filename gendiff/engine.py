@@ -5,7 +5,7 @@ from gendiff.cli import generate_parser, FORMATS
 def gendiff():
     parser = generate_parser()
     file_before, file_after = parsing_args()
-    diff = generate_diff(file_before, file_after, FORMATS[parser.format].render)
+    diff = generate_diff(file_before, file_after, FORMATS[parser.format].format)
     print(edit_message(FORMATS[parser.format].to_string(diff)))
 
 
