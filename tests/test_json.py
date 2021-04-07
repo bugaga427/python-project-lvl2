@@ -1,5 +1,5 @@
 from gendiff.engine import generate_diff, edit_message
-from gendiff.formatters import stylish, plain
+from gendiff.formatters import stylish, plain, json as json_format
 import json
 
 
@@ -28,3 +28,12 @@ def test_json_plain():
     assert edit_message(
         plain.to_string(
             generate_diff(before, after, plain.format))) == result.read()
+
+
+def test_json_json():
+    before = json.load(open('tests/fixtures/json_recursive_before.json'))
+    after = json.load(open('tests/fixtures/json_recursive_after.json'))
+    result = open("tests/fixtures/diff_json.txt")
+    assert edit_message(
+        json_format.to_string(
+            generate_diff(before, after, json_format.format))) == result.read()
