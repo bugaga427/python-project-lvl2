@@ -1,9 +1,10 @@
-from gendiff.formatters import stylish, plain
+from gendiff.formatters import stylish, plain, json as json_format
 import argparse
 
 FORMATS = {
     "stylish": stylish,
-    "plain": plain
+    "plain": plain,
+    "json": json_format
 }
 
 
