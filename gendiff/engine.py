@@ -5,15 +5,15 @@ from gendiff.cli import generate_parser, FORMATS
 def gendiff():
     parser = generate_parser()
     file_before, file_after = parsing_args()
-    diff = generate_diff(file_before, file_after, FORMATS[parser.format].format)
-    print(edit_message(FORMATS[parser.format].to_string(diff)))
+    diff = get_diff(file_before, file_after, FORMATS[parser.format])
+    print(diff)
 
 
-def generate_diff(file_before, file_after, format_name):
-    return format_name(difference(file_before, file_after))
+def get_diff(file_before, file_after, format_name):
+    return format_name(generate_difference(file_before, file_after))
 
 
-def difference(file_before, file_after):
+def generate_difference(file_before, file_after):
     result = []
     keys = sorted(set(file_before) | set(file_after))
     for key in keys:
@@ -21,7 +21,7 @@ def difference(file_before, file_after):
     return result
 
 
-def is_dict(data):
+def is_child(data):
     return isinstance(data, dict)
 
 
@@ -40,26 +40,16 @@ def check_keys(key, file1, file2):
 def check_values(key, file1, file2):
     if file1[key] == file2[key]:
         value = file1[key]
-        if is_dict(value):
-            value = difference(file1[key], file2[key])
+        if is_child(value):
+            value = generate_difference(file1[key], file2[key])
         return [["no changed", key, value]]
     else:
         value1 = file1[key]
         value2 = file2[key]
-        if is_dict(file1[key]) and is_dict(file2[key]):
-            return [["no changed", key, difference(value1, value2)]]
-        elif is_dict(file1[key]):
-            value1 = difference(file1[key], file1[key])
-        elif is_dict(file2[key]):
-            value2 = difference(file2[key], file2[key])
+        if is_child(file1[key]) and is_child(file2[key]):
+            return [["no changed", key, generate_difference(value1, value2)]]
+        elif is_child(file1[key]):
+            value1 = generate_difference(file1[key], file1[key])
+        elif is_child(file2[key]):
+            value2 = generate_difference(file2[key], file2[key])
         return [["updated", key, value1, value2]]
-
-
-def edit_message(message):
-    if "False" in message:
-        message = message.replace("False", "false")
-    if "True" in message:
-        message = message.replace("True", "true")
-    if "None" in message:
-        message = message.replace("None", "null")
-    return message
