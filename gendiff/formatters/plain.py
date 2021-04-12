@@ -1,4 +1,11 @@
+from gendiff.formatters.stylish import edit_message
+
+
 line_list = []
+
+
+def render(data):
+    return edit_message(to_string(format(data)))
 
 
 def format(data, key_path=""):
@@ -46,4 +53,4 @@ def unpack_values(value):
 def to_string(data):
     data = "\n".join(format(data))
     line_list.clear()
-    return data
+    return edit_message(data)

@@ -1,3 +1,7 @@
+def render(data):
+    return edit_message(to_string(format(data)))
+
+
 def format(data):
     result = {}
     for item in data:
@@ -29,4 +33,14 @@ def to_string(data, lvl=0):
             value = to_string(value, lvl + 1)
         result += f"{'    ' * lvl}{key}: {value}\n"
     result += f"{'    ' * lvl}}}"
-    return result
+    return edit_message(result)
+
+
+def edit_message(message):
+    if "False" in message:
+        message = message.replace("False", "false")
+    if "True" in message:
+        message = message.replace("True", "true")
+    if "None" in message:
+        message = message.replace("None", "null")
+    return message

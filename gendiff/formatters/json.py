@@ -1,6 +1,10 @@
 import json
 
 
+def render(data):
+    return json.dumps(format(data), indent=4)
+
+
 def format(data):
     result = {}
     for item in data:
@@ -22,7 +26,3 @@ def unpack_values(value):
     if isinstance(value, list):
         return format(value)
     return value
-
-
-def to_string(data):
-    return json.dumps(data, indent=4)
