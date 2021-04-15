@@ -1,49 +1,40 @@
 from gendiff.formatters.stylish import edit_message
 
 
-line_list = []
-
-
 def render(data):
     return edit_message(to_string(format(data)))
 
 
 def format(data, key_path=""):
-    for item in data:
-        status, key = item[0], key_path + item[1]
-        value = unpack_values(item[-1])
-        if status == "added":
-            line_list.append(key_added(key, value))
+    result = []
+    for item in data.keys():
+        status = item[0]
+        key = key_path + item[1]
+        if status == "changed":
+            old_value = data[item][0]
+            new_value = data[item][1]
+            result.extend(key_changed(key, old_value, new_value))
+        elif status == "added":
+            value_type, value = data[item]
+            value = unpach_values(value, value_type)
+            result.extend([f"Property '{key}' was added with value: {value}"])
         elif status == "removed":
-            line_list.append(key_removed(key))
-        elif status == "updated":
-            old_value = unpack_values(item[2])
-            line_list.append(key_updated(key, old_value, value))
-        elif status == "no changed":
-            value = item[-1]
-            key_no_changed(key, value, key_path)
-    return line_list
+            result.extend([f"Property '{key}' was removed"])
+        elif status == "no change":
+            value_type, value = data[item]
+            if value_type == "children":
+                result.extend(format(value, key + "."))
+    return result
 
 
-def key_added(key, value):
-    return f"Property '{key}' was added with value: {value}"
+def key_changed(key, old_value, new_value):
+    old_value = unpach_values(old_value[1], old_value[0])
+    new_value = unpach_values(new_value[1], new_value[0])
+    return [f"Property '{key}' was updated. From {old_value} to {new_value}"]
 
 
-def key_removed(key):
-    return f"Property '{key}' was removed"
-
-
-def key_updated(key, old_value, new_value):
-    return f"Property '{key}' was updated. From {old_value} to {new_value}"
-
-
-def key_no_changed(key, value, key_path):
-    if isinstance(value, list):
-        format(value, key + '.')
-
-
-def unpack_values(value):
-    if isinstance(value, list):
+def unpach_values(value, value_type):
+    if value_type == "children":
         return "[complex value]"
     elif isinstance(value, str):
         return f"'{value}'"
@@ -51,6 +42,4 @@ def unpack_values(value):
 
 
 def to_string(data):
-    data = "\n".join(format(data))
-    line_list.clear()
-    return edit_message(data)
+    return "\n".join(data)
