@@ -28,12 +28,6 @@ def format(data, key_path=""):
     return result
 
 
-def key_changed(key, old_value, new_value):
-    old_value = unpach_values(old_value[1], old_value[0])
-    new_value = unpach_values(new_value[1], new_value[0])
-    return f"Property '{key}' was updated. From {old_value} to {new_value}"
-
-
 def unpach_values(value):
     if isinstance(value, dict):
         return "[complex value]"
