@@ -1,5 +1,6 @@
 from gendiff.parsing import parsing_args
 from gendiff.cli import generate_parser, FORMATS
+from gendiff.formatters.stylish import render as stylish
 
 
 def gendiff():
@@ -9,7 +10,7 @@ def gendiff():
     print(diff)
 
 
-def generate_diff(file_before, file_after, format_name):
+def generate_diff(file_before, file_after, format_name=stylish):
     return format_name(get_diff(file_before, file_after))
 
 
