@@ -1,4 +1,4 @@
-from gendiff.engine import get_diff
+from gendiff.engine import generate_diff
 from gendiff.formatters.stylish import render as stylish
 from gendiff.formatters.plain import render as plain
 from gendiff.formatters.json import render as json_format
@@ -15,7 +15,7 @@ def test_yaml():
         Loader=yaml.FullLoader
     )
     result = open("tests/fixtures/diff.txt")
-    assert get_diff(before, after, stylish) == result.read()
+    assert generate_diff(before, after, stylish) == result.read()
 
 
 def test_yaml_recursive():
@@ -28,7 +28,7 @@ def test_yaml_recursive():
         Loader=yaml.FullLoader
     )
     result = open("tests/fixtures/diff_recursive.txt")
-    assert get_diff(before, after, stylish) == result.read()
+    assert generate_diff(before, after, stylish) == result.read()
 
 
 def test_yaml_plain():
@@ -41,7 +41,7 @@ def test_yaml_plain():
         Loader=yaml.FullLoader
     )
     result = open("tests/fixtures/diff_plain.txt")
-    assert get_diff(before, after, plain) == result.read()
+    assert generate_diff(before, after, plain) == result.read()
 
 
 def test_yaml_json():
@@ -54,4 +54,4 @@ def test_yaml_json():
         Loader=yaml.FullLoader
     )
     result = open("tests/fixtures/diff_json.txt")
-    assert get_diff(before, after, json_format) == result.read()
+    assert generate_diff(before, after, json_format) == result.read()
