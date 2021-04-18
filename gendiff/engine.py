@@ -5,15 +5,15 @@ from gendiff.cli import generate_parser, FORMATS
 def gendiff():
     parser = generate_parser()
     file_before, file_after = parsing_args()
-    diff = get_diff(file_before, file_after, FORMATS[parser.format])
+    diff = generate_diff(file_before, file_after, FORMATS[parser.format])
     print(diff)
 
 
-def get_diff(file_before, file_after, format_name):
-    return format_name(generate_difference(file_before, file_after))
+def generate_diff(file_before, file_after, format_name):
+    return format_name(get_diff(file_before, file_after))
 
 
-def generate_difference(file_before, file_after):
+def get_diff(file_before, file_after):
     result = {}
     keys = sorted(set(file_before) | set(file_after))
     for key in keys:
@@ -39,23 +39,23 @@ def key_remained(before, after):
     if before == after:
         status = "no change"
         if is_child(before):
-            value = ["children", generate_difference(before, after)]
+            value = ["children", get_diff(before, after)]
         else:
             value = ["value", before]
     else:
         status = "changed"
         if is_child(before) and is_child(after):
             status = "no change"
-            value = ["children", generate_difference(before, after)]
+            value = ["children", get_diff(before, after)]
         elif is_child(before):
             value = [
-                ["children", generate_difference(before, before)],
+                ["children", get_diff(before, before)],
                 ["value", after]
             ]
         elif is_child(after):
             value = [
                 ["value", before],
-                ["children", generate_difference(after, after)]
+                ["children", get_diff(after, after)]
             ]
         else:
             value = [["value", before], ["value", after]]
@@ -64,5 +64,5 @@ def key_remained(before, after):
 
 def key_in_one_file(data, status):
     if is_child(data):
-        return status, ["children", generate_difference(data, data)]
+        return status, ["children", get_diff(data, data)]
     return status, ["value", data]
