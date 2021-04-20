@@ -5,16 +5,21 @@ from gendiff.formatters.stylish import render as stylish
 
 def gendiff():
     parser = generate_parser()
-    file_before, file_after = parsing_args()
-    diff = generate_diff(file_before, file_after, FORMATS[parser.format])
+    diff = generate_diff(
+        parser.first_file,
+        parser.second_file,
+        FORMATS[parser.format]
+    )
     print(diff)
 
 
 def generate_diff(file_before, file_after, format_name=stylish):
+    file_before, file_after = parsing_args(file_before, file_after)
     return format_name(get_diff(file_before, file_after))
 
 
 def get_diff(file_before, file_after):
+
     result = {}
     keys = sorted(set(file_before) | set(file_after))
     for key in keys:
