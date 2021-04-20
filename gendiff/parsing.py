@@ -1,23 +1,15 @@
-from gendiff.cli import generate_parser
 import json
 import yaml
 
 
-def parsing_args():
-    if is_json(generate_parser().first_file, generate_parser().second_file):
-        arg1 = json.load(open(generate_parser().first_file))
-        arg2 = json.load(open(generate_parser().second_file))
+def parsing_args(file_before, file_after):
+    if is_json(file_before, file_after):
+        arg1 = json.load(open(file_before))
+        arg2 = json.load(open(file_after))
 
-    elif is_yaml(generate_parser().first_file, generate_parser().second_file):
-        arg1 = yaml.load(
-            open(generate_parser().first_file),
-            Loader=yaml.FullLoader
-        )
-        arg2 = yaml.load(
-            open(generate_parser().second_file),
-            Loader=yaml.FullLoader
-        )
-
+    elif is_yaml(file_before, file_after):
+        arg1 = yaml.load(open(file_before), Loader=yaml.FullLoader)
+        arg2 = yaml.load(open(file_after), Loader=yaml.FullLoader)
     return arg1, arg2
 
 
