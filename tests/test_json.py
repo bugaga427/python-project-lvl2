@@ -1,6 +1,4 @@
 from gendiff.engine import generate_diff
-from gendiff.formatters.plain import render as plain
-from gendiff.formatters.json import render as json_format
 
 
 def test_json():
@@ -21,11 +19,11 @@ def test_json_plain():
     before = 'tests/fixtures/json_recursive_before.json'
     after = 'tests/fixtures/json_recursive_after.json'
     result = open("tests/fixtures/diff_plain.txt")
-    assert generate_diff(before, after, plain) == result.read()
+    assert generate_diff(before, after, "plain") == result.read()
 
 
 def test_json_json():
     before = 'tests/fixtures/json_recursive_before.json'
     after = 'tests/fixtures/json_recursive_after.json'
     result = open("tests/fixtures/diff_json.txt")
-    assert generate_diff(before, after, json_format) == result.read()
+    assert generate_diff(before, after, "json") == result.read()
