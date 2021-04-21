@@ -19,7 +19,7 @@ def generate_parser():
     )
     parser.add_argument("-f", "--format",
                         choices=FORMATS.keys(),
-                        default='stylish',
+                        default="stylish",
                         help='output format (default: "stylish")'
                         )
     parser.add_argument("-V", "--version",

@@ -1,5 +1,6 @@
 from gendiff.engine import generate_diff
 
+
 def test_yaml():
     before = 'tests/fixtures/yaml_before.yaml'
     after = 'tests/fixtures/yaml_after.yaml'

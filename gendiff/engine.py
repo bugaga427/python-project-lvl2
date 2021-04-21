@@ -7,7 +7,7 @@ def gendiff():
     diff = generate_diff(
         parser.first_file,
         parser.second_file,
-        FORMATS[parser.format]
+        parser.format
     )
     print(diff)
 
