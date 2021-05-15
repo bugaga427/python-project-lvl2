@@ -24,7 +24,7 @@ def generate_parser():
                         )
     parser.add_argument("-V", "--version",
                         action="version",
-                        version="%(prog)s 0.9.0")
+                        version="%(prog)s 0.10.2")
     parser.add_argument("first_file")
     parser.add_argument("second_file")
     args = parser.parse_args()
