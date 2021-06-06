@@ -18,7 +18,6 @@ def generate_diff(file_before, file_after, format_name="stylish"):
 
 
 def get_diff(file_before, file_after):
-
     result = {}
     keys = sorted(set(file_before) | set(file_after))
     for key in keys:
