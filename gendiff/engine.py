@@ -12,7 +12,7 @@ def gendiff():
     print(diff)
 
 
-def generate_diff(file_before, file_after, format_name):
+def generate_diff(file_before, file_after, format_name="stylish"):
     file_before, file_after = parsing_args(file_before, file_after)
     return FORMATS[format_name](get_diff(file_before, file_after))
 
